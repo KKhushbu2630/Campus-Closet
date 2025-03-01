@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusCloset - Buy & Sell</title>
+    <link rel="stylesheet" href="copi.css">
+    <script defer src="copi.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">CampusCloset</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#sell">Sell</a></li>
+                <li><a href="#buy">Buy</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="loginBtn">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find What You Need, Sell What You Don't!</h1>
+            <p>India’s best student marketplace for second-hand items.</p>
+            <a href="#categories" class="btn">Explore Now</a>
+        </div>
+    </section>
+ <!-- Login Form -->
+<div id="login-section">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter username">
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="login()">Login</button>
+    <p id="login-status"></p>
+</div>
+
+<!-- Logout Button (Initially Hidden) -->
+<button id="logout-btn" style="display:none;" onclick="logout()">Logout</button>
+
+    <!-- Categories Section -->
+    <section id="categories">
+        <h2>Categories</h2>
+        <div class="category-container">
+            <div class="category-card">Books</div>
+            <div class="category-card">Electronics</div>
+            <div class="category-card">Furniture</div>
+            <div class="category-card">Clothing</div>
+            <div class="category-card">Others</div>
+        </div>
+    </section>
+
+    <!-- Sell Section -->
+    <section id="sell">
+        <h2>Sell Your Items</h2>
+        <form>
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" required>
+            <label for="description">Description:</label>
+            <textarea id="description" required></textarea>
+            <label for="price">Price:</label>
+            <input type="number" id="price" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+<!-- Sell Form -->
+<form id="sell-form">
+    <input type="text" id="product-name" placeholder="Product Name" required>
+    <input type="number" id="product-price" placeholder="Price" required>
+    <textarea id="product-desc" placeholder="Product Description"></textarea>
+    <button type="submit">Sell</button>
+</form>
+
+
+    <!-- Buy Section -->
+    <section id="buy">
+        <h2>Available Items</h2>
+        <div class="items-container">
+            <div class="item-card">Item 1 - $10</div>
+            <div class="item-card">Item 2 - $20</div>
+            <div class="item-card">Item 3 - $15</div>
+        </div>
+    </section>
+
+<!-- Buy Section -->
+<div id="buy-section">
+    <h2>Available Products</h2>
+    <div id="product-list"></div>
+</div>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 CampusCloset. All rights reserved.</p>
+    </footer>
+</body>
+<script src="copi.js"></script>
+</html>
