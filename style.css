@@ -44,7 +44,7 @@ header {
 
 /* Hero Section */
 .hero {
-    background: url('./images/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') no-repeat center center/cover;
+    background: url('young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
     align-items: center;
