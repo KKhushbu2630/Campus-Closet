@@ -44,7 +44,11 @@ header {
 
 /* Hero Section */
 .hero {
-    background: url('https://github.com/KKhushbu2630/Campus-Closet/blob/main/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') no-repeat center center/cover;
+   /* background: url('https://github.com/KKhushbu2630/Campus-Closet/blob/main/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') no-repeat center center/cover;*/
+    .hero {
+    background: url('https://raw.githubusercontent.com/KKhushbu2630/Campus-Closet/main/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') no-repeat center center/cover;
+}
+
     height: 100vh;
     display: flex;
     align-items: center;
