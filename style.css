@@ -44,9 +44,8 @@ header {
 
 /* Hero Section */
 .hero {
-    background: url('https://raw.githubusercontent.com/KKhushbu2630/Campus-Closet/main/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') 
-                no-repeat center center;
-    background-size: cover; /* इमेज को ठीक से फैलाने के लिए */
+    background: url('https://kkhushbu2630.github.io/Campus-Closet/young-schoolgirl-eyeglasses-holding-her-books-positively-smiling.jpg') 
+                no-repeat center center/cover;
     width: 100%;
     height: 100vh; /* पूरी स्क्रीन को कवर करने के लिए */
     display: flex;
@@ -54,6 +53,8 @@ header {
     justify-content: center;
     text-align: center;
     color: white; /* अगर टेक्स्ट है, तो इसे विजिबल करने के लिए */
+    position: relative;
+    z-index: 1; /* Image को ऊपर लाने के लिए */
 }
 
 
