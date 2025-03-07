@@ -50,8 +50,8 @@ header {
     height: 100vh; /* पूरी स्क्रीन को कवर करने के लिए */
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
     color: white; /* अगर टेक्स्ट है, तो इसे विजिबल करने के लिए */
     position: relative;
     z-index: 1; /* Image को ऊपर लाने के लिए */
