@@ -152,3 +152,41 @@ function buyProduct(index) {
 window.onload = function () {
     loadProducts();
 };
+
+//login signup
+
+function forgotp(){
+          alert("Please keep trying until you remember it");
+        }
+        function login(a){
+          x=a.innerText;
+          if(x=="Sign up"){
+            login_form.style.display="none";
+            signup_form.style.display="block";
+            a.innerText="Log in";
+          }else {
+            signup_form.style.display="none";
+            login_form.style.display="block";
+            a.innerText="Sign up";
+          }
+        }
+        function logincheck(){
+          return true;
+        }
+        function signupcheck(){
+          x=document.signupform.loginname.value;
+          y=document.signupform.username.value;
+          if(y=="")document.signupform.username.value=x;
+          return true;
+        }
+
+//***new 
+function logincheck() {
+      // Basic validation can go here
+      return true;
+    }
+
+    function signupcheck() {
+      // Basic validation can go here
+      return true;
+    }
