@@ -13,12 +13,12 @@
         <nav>
             <div class="logo">CampusCloset</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="#categories">Categories</a></li>
                 <li><a href="#sell">Sell</a></li>
                 <li><a href="#buy">Buy</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><button id="loginBtn">Login</button></li>
             </ul>
         </nav>
@@ -33,6 +33,52 @@
             <a href="#categories" class="btn">Know More</a>
         </div>
     </section>
+
+    <!--*** HOW TO BUY / SELL STEPS -->
+  <section class="steps-section">
+    <div class="step">
+      <h3>How to Sell?</h3>
+      <p>✅ Create an account</p>
+      <p>✅ Post your item details & price</p>
+      <p>✅ Connect with buyers</p>
+      <p>✅ Sell & earn!</p>
+    </div>
+
+<div class="step">
+      <h3>How to Buy?</h3>
+      <p>✅ Browse available items</p>
+      <p>✅ Contact the seller</p>
+      <p>✅ Negotiate if needed</p>
+      <p>✅ Get your item!</p>
+    </div>
+  </section>
+
+<!-- ***LOGIN & SIGNUP SECTION -->
+  <section class="auth-section">
+      <!--**** LOGIN FORM -->
+    <div class="logbox" id="loginBox">
+      <h2>Login</h2>
+      <form action="logincheck.php" method="POST" onsubmit="return logincheck()">
+        <input type="text" name="loginname" placeholder="Enter Email" required>
+        <input type="password" name="loginpass" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+      </form>
+      <span class="switch-link" onclick="toggleForms()">Don't have an account? Sign up</span>
+    </div>
+
+    <!--*** SIGNUP FORM -->
+    <div class="logbox" id="signupBox" style="display: none;">
+      <h2>Sign Up</h2>
+      <form action="signupcheck.php" method="POST" onsubmit="return signupcheck()">
+        <input type="text" name="loginname" placeholder="Enter Email" required>
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="loginpass" placeholder="Enter Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <span class="switch-link" onclick="toggleForms()">Already have an account? Login</span>
+    </div>
+
+  </section>
 
 
 
