@@ -6,7 +6,7 @@ navToggle.style.color = "white";
 navToggle.style.border = "none";
 navToggle.style.fontSize = "1.5rem";
 navToggle.style.cursor = "pointer";
-navToggle.style.display = "none"; // Default hidden for larger screens
+navToggle.style.display = "none"; 
 
 document.querySelector("header").prepend(navToggle);
 const navLinks = document.querySelector(".nav-links");
@@ -25,7 +25,7 @@ window.addEventListener("resize", () => {
         navLinks.style.display = "flex";
     }
 });
-window.dispatchEvent(new Event("resize")); // Initial check
+window.dispatchEvent(new Event("resize")); 
 
 // Smooth Scroll for navigation links
 document.querySelectorAll(".nav-links a").forEach(link => {
@@ -182,7 +182,7 @@ function forgotp(){
 
 //***new 
 function logincheck() {
-      // Basic validation can go here
+      
       return true;
     }
 
