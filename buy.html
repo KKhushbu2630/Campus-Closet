@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Closet - Buy Items</title>
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: #3067f2;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #060606;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffd700;
+    }
+
+    /* Hero Section */
+    .hero {
+      background-image: url('https://images.unsplash.com/photo-1581091012184-7e0cdfbb679b');
+      background-size: cover;
+      background-position: center;
+      color: rgb(16, 6, 6);
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    /* Info Section */
+    .info-container {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    .info-container h2 {
+      margin-bottom: 10px;
+      font-size: 32px;
+      color: #4CAF50;
+    }
+
+    .info-container p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    /* Items Section */
+    .items-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .item-card {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .item-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .item-card img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .item-details {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .item-details h3 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .item-details p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .item-details button {
+      align-self: start;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .item-details button:hover {
+      background-color: #45a049;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #040404;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Campus Closet</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Buy</a></li>
+        <li><a href="#">Sell</a></li>
+        <li><a href="#">Contact</a></li>
+<li><a href="#">login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <section class="hero">
+  <h1>Find The Best Deals On Campus!</h1>
+  <h2>Buy Pre-loved Items From Fellow Students</h2>
+  <h3>Affordable • Trusted • Easy</h3>
+</section>
+
+  </section>
+
+  <!-- Info Section -->
+  <section class="info-container">
+    <h2>Find What You Need!</h2>
+    <p>Explore pre-loved books, gadgets, musical instruments, and more from your fellow students. All in good condition and at the best prices!</p>
+  </section>
+
+  <!-- Search Bar -->
+  <section class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search for items...">
+  </section>
+
+  <!-- Items Container -->
+  <section class="items-container" id="itemsContainer">
+
+    <!-- Item 1 -->
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc" alt="Book">
+      <div class="item-details">
+        <h3>Engineering Book</h3>
+        <p>Price: Rs. 300</p>
+        <button>Contact Seller</button>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1581235720704-06d3acfcb36d" alt="Guitar">
+      <div class="item-details">
+        <h3>Acoustic Guitar</h3>
+        <p>Price: Rs. 2500</p>
+        <button>Contact Seller</button>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1592878849123-11b5f07dcca5" alt="Calculator">
+      <div class="item-details">
+        <h3>Scientific Calculator</h3>
+        <p>Price: Rs. 600</p>
+        <button>Contact Seller</button>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1570819177724-4d9b2cc807f2" alt="Laptop Stand">
+      <div class="item-details">
+        <h3>Laptop Stand</h3>
+        <p>Price: Rs. 400</p>
+        <button>Contact Seller</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Campus Closet. All rights reserved.</p>
+  </footer>
+
+  <!-- JS Script -->
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const itemsContainer = document.getElementById("itemsContainer");
+    const itemCards = itemsContainer.getElementsByClassName("item-card");
+
+    searchInput.addEventListener("keyup", function() {
+      const filter = searchInput.value.toLowerCase();
+
+      Array.from(itemCards).forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(filter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
