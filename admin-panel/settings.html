@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            background: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #1e1e2f;
+            color: white;
+            padding: 20px;
+            position: fixed;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px;
+            transition: 0.3s;
+        }
+        .sidebar ul li:hover {
+            background: #323248;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 40px;
+            width: calc(100% - 250px);
+        }
+        h1 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .settings-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            transition: 0.3s ease-in-out;
+        }
+        .settings-container:hover {
+            transform: scale(1.02);
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="user.html">Users</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Admin Settings</h1>
+
+        <div class="settings-container">
+            <label for="adminName">Admin Name</label>
+            <input type="text" id="adminName" placeholder="Enter your name">
+
+            <label for="adminEmail">Admin Email</label>
+            <input type="email" id="adminEmail" placeholder="Enter your email">
+
+            <label for="adminPassword">Change Password</label>
+            <input type="password" id="adminPassword" placeholder="Enter new password">
+
+            <button onclick="saveSettings()">Save Settings</button>
+        </div>
+    </div>
+
+    <script>
+
+// Check admin session on page load
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/admin/items');
+            if (!response.ok) {
+                window.location.href = '/dashboard';
+            }
+        } catch (error) {
+            window.location.href = '/dashboard';
+        }
+    }
+    
+    checkAdminSession();
+        // Save admin settings
+        function saveSettings() {
+            const name = document.getElementById("adminName").value;
+            const email = document.getElementById("adminEmail").value;
+            const password = document.getElementById("adminPassword").value;
+
+            if (name === "" || email === "" || password === "") {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            alert("Settings Saved Successfully!");
+        }
+    </script>
+
+</body>
+</html>

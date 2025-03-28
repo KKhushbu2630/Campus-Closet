@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            background: #f4f7fc;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #1e1e2f;
+            color: white;
+            padding: 20px;
+            position: fixed;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px;
+            transition: 0.3s;
+        }
+        .sidebar ul li:hover {
+            background: #323248;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 40px;
+            width: calc(100% - 250px);
+        }
+        h1 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .profile-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            margin: auto;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #007bff;
+            margin-bottom: 10px;
+        }
+        .profile-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .profile-email {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .profile-info {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .edit-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .edit-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="user.html">Users</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Admin Profile</h1>
+
+        <div class="profile-card">
+            <img src="https://via.placeholder.com/120" alt="Admin Profile" class="profile-img">
+            <div class="profile-name">John Doe</div>
+            <div class="profile-email">admin@example.com</div>
+            <div class="profile-info"><strong>Role:</strong> Super Admin</div>
+            <div class="profile-info"><strong>Joined:</strong> January 2023</div>
+            <a href="edit-profile.html" class="edit-btn">Edit Profile</a>
+        </div>
+    </div>
+
+<script>
+// Check admin session on page load
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/admin/items');
+            if (!response.ok) {
+                window.location.href = '/dashboard';
+            }
+        } catch (error) {
+            window.location.href = '/dashboard';
+        }
+    }
+
+
+    
+    checkAdminSession();
+
+
+// Fetch user data
+        async function loadProfile() {
+            try {
+                const response = await fetch('/api/user-profile');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('userProfile').innerHTML = `
+                        <p>Username: ${data.username}</p>
+                        <p>Email: ${data.email}</p>
+                    `;
+                } else {
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await fetch('/api/logout');
+            window.location.href = '/login.html';
+        });
+
+        // Add this endpoint to server.js
+        /*
+        app.get('/api/user-profile', isAuthenticated, (req, res) => {
+            res.json(req.session.user);
+        });
+        */
+
+        loadProfile();
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Your existing styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Your existing sidebar and content structure -->
+    
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddProductModal()">&times;</span>
+            <h2>Add New Product</h2>
+            <!-- We'll load sell.html content here dynamically -->
+            <div id="sellFormContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the add product modal
+        function openAddProduct() {
+            // Load the sell form content
+            fetch('sell.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('sellFormContainer').innerHTML = html;
+                    // Initialize the sell form script
+                    initSellForm();
+                    // Show the modal
+                    document.getElementById('addProductModal').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Error loading sell form:', error);
+                    alert('Could not load the product form. Please try again.');
+                });
+        }
+
+        // Function to close the modal
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+            document.getElementById('sellFormContainer').innerHTML = '';
+            // Refresh products list
+            loadProducts();
+        }
+
+        // Function to initialize the sell form
+        function initSellForm() {
+            const sellForm = document.getElementById('productForm');
+            if (sellForm) {
+                sellForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const product = {
+                        id: Date.now(),
+                        name: document.getElementById('productName').value,
+                        description: document.getElementById('productDescription').value,
+                        price: document.getElementById('productPrice').value,
+                        category: document.getElementById('productCategory').value,
+                        stock: document.getElementById('productStock').value || 1,
+                        date: new Date().toLocaleString(),
+                        image: document.getElementById('imagePreview')?.src || null
+                    };
+                    
+                    // Save product to localStorage
+                    let products = JSON.parse(localStorage.getItem('products')) || [];
+                    products.push(product);
+                    localStorage.setItem('products', JSON.stringify(products));
+                    
+                    // Close the modal
+                    closeAddProductModal();
+                    
+                    // Show success message
+                    alert('Product added successfully!');
+                });
+
+                // Image preview functionality
+                const imageInput = document.getElementById('productImage');
+                if (imageInput) {
+                    imageInput.addEventListener('change', function(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                const preview = document.getElementById('imagePreview');
+                                if (preview) {
+                                    preview.src = event.target.result;
+                                    preview.style.display = 'block';
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            }
+        }
+
+        // Your existing loadProducts function
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const tableBody = document.querySelector("#productsTable tbody");
+            
+            if (!tableBody) {
+                const table = document.getElementById('productsTable');
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+            }
+            
+            const tbody = document.querySelector("#productsTable tbody");
+            tbody.innerHTML = "";
+            
+            products.forEach(product => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>
+                        ${product.image ? 
+                            `<img src="${product.image}" alt="${product.name}" style="width:50px;height:50px;object-fit:cover;">` : 
+                            'No Image'}
+                    </td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>${product.price}</td>
+                    <td>${product.stock}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editProduct(${product.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener("DOMContentLoaded", loadProducts);
+    </script>
+</body>
+</html>
+
+

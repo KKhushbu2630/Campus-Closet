@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            position: fixed;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #34495e;
+        }
+        .sidebar ul li:hover {
+            background: #34495e;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #2980b9;
+            color: white;
+        }
+        button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="user.html">Users</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>User Management</h1>
+
+        <!-- User Table -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            <tbody id="userTable">
+                <!-- Data will be inserted dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+   <!-- Replace the script section in user.html with this: -->
+<script>
+// Check admin session on page load
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/admin/items');
+            if (!response.ok) {
+                window.location.href = '/dashboard';
+            }
+        } catch (error) {
+            window.location.href = '/dashboard';
+        }
+    }
+    
+    checkAdminSession();
+    // Fetch users from backend
+    async function fetchUsers() {
+        try {
+            const response = await fetch('/api/users');
+            if (!response.ok) throw new Error('Network response was not ok');
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            return [];
+        }
+    }
+
+    // Delete user from backend
+    async function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            try {
+                const response = await fetch(`/api/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to delete user');
+                
+                loadUsers(); // Refresh the list
+            } catch (error) {
+                console.error('Delete error:', error);
+                alert('Error deleting user');
+            }
+        }
+    }
+
+    // Load and display users
+    async function loadUsers() {
+        const users = await fetchUsers();
+        const userTable = document.getElementById("userTable");
+        
+        userTable.innerHTML = users.map(user => `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.role}</td>
+                <td><button onclick="deleteUser(${user.id})">Delete</button></td>
+            </tr>
+        `).join('');
+    }
+
+    // Check admin session
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/admin/items');
+            if (!response.ok) {
+                window.location.href = '/dashboard';
+            } else {
+                loadUsers();
+            }
+        } catch (error) {
+            window.location.href = '/dashboard';
+        }
+    }
+
+    // Initialize on page load
+    checkAdminSession();
+</script>
+
+</body>
+</html>

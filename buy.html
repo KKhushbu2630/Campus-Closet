@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Items</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .items-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .item-card { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .item-image { max-width: 100%; height: 200px; object-fit: contain; }
+        .no-image { background: #eee; height: 200px; display: flex; align-items: center; justify-content: center; }
+
+/* buy.html के style में यह जोड़ें */
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+    </style>
+</head>
+<body>
+    <h1>Items for Sale</h1>
+    <div class="items-container" id="itemsContainer">
+        <p>Loading items...</p>
+    </div>
+
+    <script>
+        async function loadItems() {
+            try {
+                const response = await fetch('http://localhost:3000/api/items');
+                const items = await response.json();
+                
+                const container = document.getElementById('itemsContainer');
+                container.innerHTML = '';
+                
+                if (items.length === 0) {
+                    container.innerHTML = '<p>No items available yet.</p>';
+                    return;
+                }
+                
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card';
+                    card.innerHTML = `
+                        ${item.image 
+                            ? `<img src="${item.image}" class="item-image" alt="${item.name}">` 
+                            : `<div class="no-image">No Image</div>`}
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <p><strong>Price:</strong> $${item.price}</p>
+                        <p><strong>Category:</strong> ${item.category}</p>
+                        <p><small>Posted: ${item.date}</small></p>
+                        <p><strong>Contact:</strong> ${item.contact}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('itemsContainer').innerHTML = 
+                    '<p>Error loading items. Please try again later.</p>';
+            }
+        }
+        
+        loadItems();
+
+//
+async function loadItems() {
+    try {
+      const response = await fetch('http://localhost:3000/api/items');
+      const items = await response.json();
+      
+      const container = document.getElementById('itemsContainer');
+      container.innerHTML = '';
+      
+      if (items.length === 0) {
+        container.innerHTML = '<p>No items available yet.</p>';
+        return;
+      }
+      
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.innerHTML = `
+          ${item.image 
+            ? `<img src="${item.image}" class="item-image" alt="${item.name}">` 
+            : `<div class="no-image">No Image</div>`}
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <p><strong>Price:</strong> $${item.price}</p>
+          <p><strong>Category:</strong> ${item.category}</p>
+          <p><small>Posted: ${item.date}</small></p>
+          <p><strong>Contact:</strong> ${item.contact}</p>
+          <button class="delete-btn" data-id="${item.id}">Delete Item</button>
+        `;
+        container.appendChild(card);
+      });
+
+      // Add event listeners to all delete buttons
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+          const itemId = this.getAttribute('data-id');
+          if (confirm('Are you sure you want to delete this item?')) {
+            try {
+              const response = await fetch(`http://localhost:3000/api/items/${itemId}`, {
+                method: 'DELETE'
+              });
+              
+              const result = await response.json();
+              if (result.success) {
+                alert('Item deleted successfully!');
+                loadItems(); // Refresh the list
+              } else {
+                alert('Failed to delete item: ' + result.message);
+              }
+            } catch (error) {
+              alert('Error deleting item: ' + error.message);
+            }
+          }
+        });
+      });
+      
+    } catch (error) {
+      document.getElementById('itemsContainer').innerHTML = 
+        '<p>Error loading items. Please try again later.</p>';
+    }
+  }
+  
+  loadItems();
+    </script>
+</body>
+</html>
